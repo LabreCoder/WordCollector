@@ -30,3 +30,4 @@ def get_definition(word):
             results.append((f"Definition not found. Please, check on: {dictionary_url}", f"No example available. Please, check on: {dictionary_url}"))
                 
         return results
+    

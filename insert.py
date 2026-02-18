@@ -34,8 +34,10 @@ def insert_definition(cursor, word_id, definition, example):
 def insert_notifications(cursor, word_id):
     cursor.execute("""
         INSERT INTO notifications (word_id, send_time)
-        VALUES (?, CURRENT_TIMESTAMP)
-    """, (word_id,))
+        SELECT ?, CURRENT_TIMESTAMP
+        WHERE NOT EXISTS (
+            SELECT 1 FROM notifications WHERE word_id = ? )
+    """, (word_id, word_id))
 
 def connect_sql():
     conn = sqlite3.connect('./database/data/database.db')
