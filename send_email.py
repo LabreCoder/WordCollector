@@ -38,7 +38,11 @@ def main():
     
     #print('✅ .env carregado')
 
-    receiver_email = ['jvlabremachado@id.uff.br','beatriz.cavalcante1674@gmail.com']
+    receiver_email = []
+
+    with open('receiver_emails.txt', 'r') as f:
+        receiver_email.append([line.strip() for line in f.readlines() if line[0] != '#'])
+
     subject = f'New English word for you to learn today - Day {int_id}'
 
     try:
@@ -58,16 +62,13 @@ def main():
         print('❌ ERRO ao obter palavra ou definição:', e)
         sys.exit(1)
 
-    definitions_text = ""
-    examples_text = ""
+    definition_and_example = ""
 
     for i, (definition, example) in enumerate(results, start=1):
         if i != 1:
-            definitions_text += f"                      Definition {i}: {definition}.\n"
-            examples_text += f"                      Example {i}: {example}.\n"
+            definition_and_example += f"                      Definition {i}: {definition}.\n                      Example {i}: {example}.\n\n"
         else:
-            definitions_text += f"          Definition {i}: {definition}.\n"
-            examples_text += f"          Example {i}: {example}.\n"
+            definition_and_example += f"          Definition {i}: {definition}.\n                      Example {i}: {example}.\n\n"
 
     body = f"""
         Hello, we are learning word ID: {int_id}#!!
@@ -76,14 +77,9 @@ def main():
 
         It means:
 
-            {definitions_text}
-
-        Examples of usage:
-
-            {examples_text}
-
+            {definition_and_example} 
         Keep learning and have fun! 🚀📚
-    """
+    """ # não irei colocar um enter ou \n antes do Keep learning, pois dentro da variável já possui um \n\n no final.
     for i in range(len(results)):
         j = 0
         insert_new_word(word, results[i][j], results[i][j + 1])
