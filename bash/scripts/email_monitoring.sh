@@ -8,7 +8,9 @@ LOG_ARQ="$LOG_DIR/logs_email_monitoring.txt"
 DATE=$(date +"%Y-%m-%d %H:%M:%S")
 
 mkdir -p "$LOG_DIR"
-python3 "$BASE_DIR/send_email.py"
+
+cd "$BASE_DIR" # ele irá acessar o diretório correto.
+/usr/bin/python3 "$BASE_DIR/send_email.py"
 
 STATUS=$? # Espera retorno da função python informando se teve sucesso ou não ao enviar o e-mail
 
