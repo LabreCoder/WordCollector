@@ -1,4 +1,4 @@
-# WordCollector
+# WordCollector [![Status](<https://img.shields.io/badge/status-em%20conserto-orange?style=flat-square>)](#)
 
 WordCollector is an automation project that searches for a word using a public API, retrieves its definitions and usage examples, stores the data in a local database, and sends the results by email.
 
